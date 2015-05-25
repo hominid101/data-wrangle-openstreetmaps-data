@@ -1,0 +1,10 @@
+This project is about wrangling the Mapzen metro-exracts of
+OpenStreetMap data for the Kolkata metro-area in India [1]. Data
+from a different geographical region contains a lot of
+discrepancies with how such data is collected and described in the
+US. Therefore it is expected to be an interesting and challenging
+data wrangling exercise.
+
+[1] "https://mapzen.com/metro-extracts"
+ Metro Extracts, City-sized portions of OpenStreetMap, served weekly.
+

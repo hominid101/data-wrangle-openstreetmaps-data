@@ -1,0 +1,12 @@
+1. 
+"https://mapzen.com/metro-extracts"
+ Metro Extracts, City-sized portions of OpenStreetMap, served weekly.
+
+2.
+"http://www.bitboost.com/ref/international-address-formats/india/
+
+India Mailing Address Formats and other International Address Information.
+
+3. 
+"https://docs.google.com/document/d/1F0Vs14oNEs2idFJR3C_OPxwS6L0HPliOii-QpbmrMo4/pub"
+OpenStreetMap Sample Project, Data Wrangling with MongoDB, Matthew Banbury

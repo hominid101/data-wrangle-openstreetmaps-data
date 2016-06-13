@@ -1,14 +1,14 @@
 ### Overview ###
 
 This project is about wrangling the Mapzen metro-exracts of
-OpenStreetMap data for the Kolkata metro-area in India [1]. Data from
-a different geographical region contains a lot of discrepancies with
-how such data is collected and described in the US. Therefore it is
-expected to be an interesting and challenging data wrangling exercise.
+OpenStreetMap data for the Kolkata metro-area in India
+[\[metroExtacts\]][&metroExtacts]. Data from a different geographical
+region contains a lot of discrepancies with how such data is collected
+and described in the US. Therefore it is expected to be an interesting
+and challenging data wrangling exercise.
 
 All data and code is available for download from the git repository
 [\[gitRepo\]][&gitRepo].
-
 
 ### Problems Encountered in the Map Data ###
 
@@ -27,8 +27,7 @@ consistency, uniformity.
 
 To improve the first of the five formal measures of data quality, *
 validity *, I would have prefered to start with a standard schema for
-Indial postal addresses. Unfortunately as discussed in [2], address
-format in India isn't very standardized. While US addresses contain a
+Indial postal addresses. Unfortunately as discussed in [\[indiaAddress\]][&indiaAddress], address format in India isn't very standardized. While US addresses contain a
 standard street/city/state format, Indian addresses often contain
 locality/town/city format, which makes it hard to fit into the fields
 offered in the osm format.
@@ -119,8 +118,8 @@ programmatically.
 A statistical overview about the data set is given below. 
 
 * Size of the file 
-* * kolkata_india.osm ... .... 106 MB 
-* *	kolkata_india.osm.json ... 155 MB 
+  * kolkata_india.osm ... .... 106 MB 
+  *	kolkata_india.osm.json ... 155 MB 
 
 * Number of unique users
 
@@ -193,13 +192,15 @@ out the data items that fall below some fidelity threshold. National
 security interests can be safeguarded by adding a "contributor-id" to
 each data item. This will allow regulatory agencies to perform
 security audit of sensitive areas and track down contributors that
-enter data that violate a nation's security interests.  </p> <p> If
-the quality is acceptable, the OpenStreetMap data can a gold mine of
-opportunities for many applications <ul> <li> Real time routing
-projects e.g. open source routing machine [4] </li> <li> Provide
-spatial awareness to humanitarial projects that distribute goods and
-services to remote communities. </li> <li> Analysis on spatial
-distribution of land and resources.</li> </ul> </p>
+enter data that violate a nation's security interests.
+
+If the quality is acceptable, the OpenStreetMap data can a gold mine of
+opportunities for many applications
+
+* Real time routing projects e.g. open source routing machine [\[osmRoute\]][&osmRoute]
+* Provide spatial awareness to humanitarial projects that distribute goods and
+services to remote communities.
+* Analysis on spatial distribution of land and resources.
 
 #### Additional exploration using MongoDB queries #####
 
@@ -232,9 +233,11 @@ pprint.pprint(result)
              {u'_id': u'alcohol', u'count': 3},
              {u'_id': u'clothes', u'count': 3},
              {u'_id': u'shoes', u'count': 3}]}
-	  </li>
-      <li> Number of different types of highways
-		<pre><code>pipeline = [
+
+* Number of different types of highways
+
+```python
+	pipeline = [
     {"$match" : {"type" : "way",
                  "highway" : {"$exists" : 1}}},
     {"$group" : {"_id" : "$highway",
@@ -246,10 +249,10 @@ result = db.maps.aggregate(pipeline)
 print "Number and types of highways"
 pprint.pprint(result)
 ```
->Number and types of highways
+>Number and types of highways 
 {u'ok': 1.0,
- u'result': [{u'_id': u'service', u'count': 17201},
-             {u'_id': u'residential', u'count': 14781},
+u'result': [{u'_id': u'service', u'count': 17201},
+           {u'_id': u'residential', u'count': 14781},
              {u'_id': u'tertiary', u'count': 2257},
              {u'_id': u'unclassified', u'count': 680},
              {u'_id': u'secondary', u'count': 626},
@@ -263,32 +266,16 @@ pprint.pprint(result)
 
 [\[gitRepo\] Data Wrangle OpenStreetMaps Data][&gitRepo]
 
-  <h1 class="nocount">References</h1>
-  <p>[1]
-	<a href="https://mapzen.com/metro-extracts">
-	  Metro Extracts, City-sized portions of OpenStreetMap, served
-	  weekly
-	</a>
-  </p>
-  <p>[2]
-	<a href="http://www.bitboost.com/ref/international-address-formats/india/">
-	  India Mailing Address Formats and other International Address
-	  Information.
-	</a>
-  </p>
-  <p>[3]
-	<a href="https://docs.google.com/document/d/1F0Vs14oNEs2idFJR3C_OPxwS6L0HPliOii-QpbmrMo4/pub">
-	  OpenStreetMap Sample Project, Data Wrangling with MongoDB,
-	  Matthew Banbury
-	</a>
-  </p>
-  <p>[4]
-	<a href="http://en.wikipedia.org/wiki/Open_Source_Routing_Machine">
-	  Open Source Routing Machine, Wikipedia
-	</a>
-  </p>
+[\[metroExtacts\] Metro Extracts, City-sized portions of OpenStreetMap, served weekly][&metroExtacts]
 
-</body>
-</html>
+[\[indiaAddress\] India Mailing Address Formats and other International Address Information][&indiaAddress]
+
+[\[osmRoute\] Open Source Routing Machine, Wikipedia] [&osmRoute] 
+
+[\[banburyM\] OpenStreetMap Sample Project, Data Wrangling with MongoDB, Matthew Banbury] [&banburyM]
 
 [&gitRepo]: https://github.com/samitchaudhuri/wrangle-maps "Data Wrangle OpenStreetMaps Data"
+[&metroExtacts]: https://mapzen.com/metro-extracts "Metro Extracts, City-sized portions of OpenStreetMap, served weekly"
+[&indiaAddress]: http://www.bitboost.com/ref/international-address-formats/india "India Mailing Address Formats and other International Address Information"
+[&osmRoute]: http://en.wikipedia.org/wiki/Open_Source_Routing_Machine "Open Source Routing Machine, Wikipedia"
+[&banburyM]: https://docs.google.com/document/d/1F0Vs14oNEs2idFJR3C_OPxwS6L0HPliOii-QpbmrMo4/pub "OpenStreetMap Sample Project, Data Wrangling with MongoDB, Matthew Banbury"

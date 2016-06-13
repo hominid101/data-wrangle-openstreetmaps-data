@@ -38,8 +38,6 @@ the data elements into MongoDB. It was faster to uncompress the .bz2
 file once onto the disk, and then to repeatedly audit the data as they
 came out of the SAX parser.
 
-
-
 #### Auditing and cleaning up contibuting user information ####
 
 * A few users have contributed most of the data.</li>
@@ -57,9 +55,9 @@ anomalies in the street names.
   instead of road.
 
 * Some street names contain house number information; for example
-       "24/j, shyamsundar pally". These items can be made
-       more accurate by removing the house numbers and storing them
-       in the addr:housenumber field.
+  "24/j, shyamsundar pally". These items can be made more accurate by
+  removing the house numbers and storing them in the addr:housenumber
+  field.
 
 * Some of the street types are local to the area, such as "Sarani",
   "Pally", and "Potti".
@@ -123,54 +121,52 @@ A statistical overview about the data set is given below.
 
 * Number of unique users
 
-```python
-uniq_user_count = len(db.maps.distinct("created.user"))
-print "There are {} of unique contrbuting users in Kolkata, India.".format(uniq_user_count)
-```
-
-> There are 227 of unique contrbuting users in Kolkata, India.
-
+  ```python
+  uniq_user_count = len(db.maps.distinct("created.user"))
+  print "There are {} of unique contrbuting users in Kolkata, India.".format(uniq_user_count)
+  ```
+  > There are 227 of unique contrbuting users in Kolkata, India.
 
 * Number of nodes and ways
 
-```python
-node_count = db.maps.find({"type" : "node"}).count()
-ways_count = db.maps.find({"type" : "way"}).count()
-print "There are {} nodes and {} ways in Kolkata, India.".format(node_count, ways_count)
-```
-> There are 506727 nodes and 59642 ways in Kolkata, India.
+  ```python
+  node_count = db.maps.find({"type" : "node"}).count()
+  ways_count = db.maps.find({"type" : "way"}).count()
+  print "There are {} nodes and {} ways in Kolkata, India.".format(node_count, ways_count)
+  ```
 
+  > There are 506727 nodes and 59642 ways in Kolkata, India.
 
 * Number of chosen type of nodes, like cafes, shops etc.
 
-```python
-cafe_count = db.maps.find({"amenity" : "cafe"}).count()
-restaurant_count = db.maps.find({"amenity" : "restaurant"}).count()
-shop_count = db.maps.find({"amenity" : "shop"}).count()
-hospital_count = db.maps.find({"amenity" : "hospital"}).count()
-school_count = db.maps.find({"amenity" : "school"}).count()
-college_count = db.maps.find({"amenity" : "college"}).count()
-univ_count = db.maps.find({"amenity" : "university"}).count()
+  ```python
+  cafe_count = db.maps.find({"amenity" : "cafe"}).count()
+  restaurant_count = db.maps.find({"amenity" : "restaurant"}).count()
+  shop_count = db.maps.find({"amenity" : "shop"}).count()
+  hospital_count = db.maps.find({"amenity" : "hospital"}).count()
+  school_count = db.maps.find({"amenity" : "school"}).count()
+  college_count = db.maps.find({"amenity" : "college"}).count()
+  univ_count = db.maps.find({"amenity" : "university"}).count()
 
-print """Amenities:
-    cafes: {}
-    restaurants: {}
-    shops: {}
-    hospitals: {}
-    schools: {}
-    colleges: {}
-    universities: {}
-""".format(cafe_count, restaurant_count, shop_count, hospital_count, school_count, college_count, univ_count)
-```
+  print """Amenities:
+      cafes: {}
+      restaurants: {}
+      shops: {}
+      hospitals: {}
+      schools: {}
+      colleges: {}
+      universities: {}
+  """.format(cafe_count, restaurant_count, shop_count, hospital_count, school_count, college_count, univ_count)
+  ```
 
-> Amenities:
-        cafes: 9
-        restaurants: 38
-        shops: 0
-        hospitals: 75
-        schools: 135
-        colleges: 65
-        universities: 25
+  > Amenities:
+  >		cafes: 9
+  >		restaurants: 38
+          shops: 0
+          hospitals: 75
+          schools: 135
+          colleges: 65
+          universities: 25
 
 ### ideas about the datasets ###
 
@@ -206,7 +202,7 @@ services to remote communities.
 
 * Top 10 businesses
 
-```python
+  ```python
 	pipeline = [
     temp
 	{"$match" : {"type" : "node",
@@ -215,52 +211,52 @@ services to remote communities.
                  "count" : {"$sum" : 1}}},
     {"$sort" : {"count" : -1}},
     {"$limit" : 10}
-]
-result = db.maps.aggregate(pipeline)
-print "Top 10 businesses:"
-pprint.pprint(result)
-```
+  ]
+  result = db.maps.aggregate(pipeline)
+  print "Top 10 businesses:"
+  pprint.pprint(result)
+  ```
 
-> Top 10 businesses:
-{u'ok': 1.0,
- u'result': [{u'_id': u'supermarket', u'count': 15},
-             {u'_id': u'convenience', u'count': 6},
-             {u'_id': u'hairdresser', u'count': 5},
-             {u'_id': u'car', u'count': 3},
-             {u'_id': u'bakery', u'count': 3},
-             {u'_id': u'electronics', u'count': 3},
-             {u'_id': u'books', u'count': 3},
-             {u'_id': u'alcohol', u'count': 3},
-             {u'_id': u'clothes', u'count': 3},
-             {u'_id': u'shoes', u'count': 3}]}
+  > Top 10 businesses:
+    {u'ok': 1.0,
+     u'result': [{u'_id': u'supermarket', u'count': 15},
+                 {u'_id': u'convenience', u'count': 6},
+                 {u'_id': u'hairdresser', u'count': 5},
+                 {u'_id': u'car', u'count': 3},
+                 {u'_id': u'bakery', u'count': 3},
+                 {u'_id': u'electronics', u'count': 3},
+                 {u'_id': u'books', u'count': 3},
+                 {u'_id': u'alcohol', u'count': 3},
+                 {u'_id': u'clothes', u'count': 3},
+                 {u'_id': u'shoes', u'count': 3}]}
 
 * Number of different types of highways
 
-```python
-	pipeline = [
+  ```python
+  pipeline = [
     {"$match" : {"type" : "way",
                  "highway" : {"$exists" : 1}}},
     {"$group" : {"_id" : "$highway",
                  "count" : {"$sum" : 1}}},
     {"$sort" : {"count" : -1}},
     {"$limit" : 10}
-]
-result = db.maps.aggregate(pipeline)
-print "Number and types of highways"
-pprint.pprint(result)
-```
->Number and types of highways 
-{u'ok': 1.0,
-u'result': [{u'_id': u'service', u'count': 17201},
-           {u'_id': u'residential', u'count': 14781},
-             {u'_id': u'tertiary', u'count': 2257},
-             {u'_id': u'unclassified', u'count': 680},
-             {u'_id': u'secondary', u'count': 626},
-             {u'_id': u'primary', u'count': 519},
-             {u'_id': u'footway', u'count': 261},
-             {u'_id': u'trunk', u'count': 248},
-             {u'_id': u'track', u'count': 238},
-             {u'_id': u'path', u'count': 114}]}
+  ]
+  result = db.maps.aggregate(pipeline)
+  print "Number and types of highways"
+  pprint.pprint(result)
+  ```
+  >Number and types of highways 
+  {u'ok': 1.0,
+   u'result': [{u'_id': u'service', u'count': 17201},
+               {u'_id': u'residential', u'count': 14781},
+               {u'_id': u'tertiary', u'count': 2257},
+               {u'_id': u'unclassified', u'count': 680},
+               {u'_id': u'secondary', u'count': 626},
+               {u'_id': u'primary', u'count': 519},
+               {u'_id': u'footway', u'count': 261},
+               {u'_id': u'trunk', u'count': 248},
+               {u'_id': u'track', u'count': 238},
+               {u'_id': u'path', u'count': 114}]}
 
 ### References
 
